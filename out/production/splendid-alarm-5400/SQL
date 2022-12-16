@@ -1,0 +1,21 @@
+create table buyer
+(
+buyerId int primary key auto_increment,
+buyerName varchar(15) not null,
+email varchar(20) not null unique,
+password varchar(15) not null,
+location varchar(15)
+);
+
+insert into buyer (buyerName,email,password,location) values ('David','david@gmail.com','david@123','Sydney');
+
+create table seller
+(
+sellerId int primary key auto_increment,
+sellerName varchar(15) not null,
+email varchar(20) not null unique,
+password varchar(15) not null,
+location varchar(15)
+);
+
+insert into seller (sellerName,email,password,location) values ('Sujit','sujit@gmail.com','sujit@123','Delhi');
