@@ -115,4 +115,59 @@ public class SellerDaoImpl implements SellerDao{
         return result;
     }
 
+    //======================================*****************=========================================================/
+
+    @Override
+    public String UpdateProductPrice(int productId,int price) throws SellerException {
+        String result;
+
+        try(Connection conn=DBUtility.provideConnection()) {
+            PreparedStatement ps=conn.prepareStatement("update products set price=? where productId=?");
+
+            ps.setInt(1,price );
+            ps.setInt(2, productId);
+
+            int x= ps.executeUpdate();
+            if(x>0){
+                result="Updated Successfully";
+            }else{
+                throw new SellerException("No Product found with productId- "+productId );
+            }
+
+
+        }catch (SQLException e){
+            e.printStackTrace();
+            throw new SellerException(e.getMessage());
+        }
+
+        return result;
+    }
+
+    //======================================*****************=========================================================/
+
+    @Override
+    public String DeleteProductItems(int productId) throws SellerException {
+        String result;
+
+        try(Connection conn=DBUtility.provideConnection()) {
+            PreparedStatement ps=conn.prepareStatement("delete from products where productId=?");
+
+            ps.setInt(1, productId);
+
+            int x= ps.executeUpdate();
+            if(x>0){
+                result="Deleted Successfully";
+            }else{
+                throw new SellerException("No Product found with productId- "+productId );
+            }
+
+
+        }catch (SQLException e){
+            e.printStackTrace();
+            throw new SellerException(e.getMessage());
+        }
+
+        return result;
+    }
+
 }

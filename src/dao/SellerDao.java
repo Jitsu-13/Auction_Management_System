@@ -13,4 +13,8 @@ public interface SellerDao {
     public String RegisterSeller(Seller seller) throws SellerException;
 
     public String CreateListofProductstoSell(List<Products> products) throws SellerException;
+
+    public String UpdateProductPrice(int productId,int price) throws SellerException;
+
+    public String DeleteProductItems(int productId) throws SellerException;
 }

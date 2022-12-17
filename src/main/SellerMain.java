@@ -3,6 +3,7 @@ package main;
 import usecases.CreateProductListUseCase;
 import usecases.SellerLoginUseCase;
 import usecases.SellerRegistrationUseCase;
+import usecases.UpdateProductPriceUseCase;
 
 public class SellerMain {
     public static boolean BuyerLogin(){
@@ -10,12 +11,16 @@ public class SellerMain {
         boolean result=login.SellerLogin();
         return result;
     }
-    public void SellerRegistration(){
+    public static void SellerRegistration(){
         SellerRegistrationUseCase register=new SellerRegistrationUseCase();
         register.SellerRegistraion();
     }
-    public void createListofProducts(){
+    public static void createListofProducts(){
         CreateProductListUseCase createProductListUseCase=new CreateProductListUseCase();
         createProductListUseCase.createProductList();
+    }
+    public static void updateProductList(){
+        UpdateProductPriceUseCase updateProductPriceUseCase=new UpdateProductPriceUseCase();
+        updateProductPriceUseCase.updateProductlist();
     }
 }
