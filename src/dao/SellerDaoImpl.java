@@ -1,15 +1,19 @@
 package dao;
 
+import exception.AdminException;
 import exception.ByerException;
 import exception.SellerException;
+import model.BuyerDTO;
 import model.Products;
 import model.Seller;
+import model.SoldItemsDTO;
 import utility.DBUtility;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SellerDaoImpl implements SellerDao{
@@ -46,7 +50,7 @@ public class SellerDaoImpl implements SellerDao{
         return seller;
     }
 
-    //======================================*****************=========================================================/
+    //======================================*****************========================================================//
 
     @Override
     public String RegisterSeller(Seller seller) throws SellerException {
@@ -77,7 +81,7 @@ public class SellerDaoImpl implements SellerDao{
         return result;
     }
 
-    //======================================*****************=========================================================/
+    //======================================*****************========================================================//
 
     @Override
     public String CreateListofProductstoSell(List<Products> products) throws SellerException {
@@ -115,7 +119,7 @@ public class SellerDaoImpl implements SellerDao{
         return result;
     }
 
-    //======================================*****************=========================================================/
+    //======================================*****************========================================================//
 
     @Override
     public String UpdateProductPrice(int productId,int price) throws SellerException {
@@ -143,7 +147,7 @@ public class SellerDaoImpl implements SellerDao{
         return result;
     }
 
-    //======================================*****************=========================================================/
+    //======================================*****************========================================================//
 
     @Override
     public String DeleteProductItems(int productId) throws SellerException {
@@ -168,6 +172,42 @@ public class SellerDaoImpl implements SellerDao{
         }
 
         return result;
+    }
+
+    //======================================*****************========================================================//
+
+    @Override
+    public List<SoldItemsDTO> SoldItemHistory(int sellerId) throws SellerException {
+        List<SoldItemsDTO> list=new ArrayList<>();
+
+        try(Connection conn=DBUtility.provideConnection()) {
+
+            PreparedStatement ps=conn.prepareStatement("select p.productId,p.productName,s.sellerName,c.categoryName,p.price,p.status from products p " +
+                    "Inner Join category c Inner Join seller s " +
+                    "On p.categoryId=c.categoryId and p.sellerId=s.sellerId " +
+                    "where status='sold' and s.sellerId=?");
+
+            ps.setInt(1,sellerId);
+
+            ResultSet rs=ps.executeQuery();
+            while (rs.next()){
+                SoldItemsDTO soldItemsDTO=new SoldItemsDTO();
+                soldItemsDTO.setProductId(rs.getInt("productId"));
+                soldItemsDTO.setProductName(rs.getString("productName"));
+                soldItemsDTO.setSellerName(rs.getString("sellerName"));
+                soldItemsDTO.setCategoryName(rs.getString("categoryName"));
+                soldItemsDTO.setPrice(rs.getInt("price"));
+                soldItemsDTO.setStatus(rs.getString("status"));
+                list.add(soldItemsDTO);
+            }
+            if(list.size()==0){
+                throw new SellerException("No Item sold in Product List/ SellerId not found");
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+            throw new SellerException(e.getMessage());
+        }
+        return list;
     }
 
 }
