@@ -1,9 +1,6 @@
 package main;
 
-import usecases.CreateProductListUseCase;
-import usecases.SellerLoginUseCase;
-import usecases.SellerRegistrationUseCase;
-import usecases.UpdateProductPriceUseCase;
+import usecases.*;
 
 public class SellerMain {
     public static boolean BuyerLogin(){
@@ -23,4 +20,14 @@ public class SellerMain {
         UpdateProductPriceUseCase updateProductPriceUseCase=new UpdateProductPriceUseCase();
         updateProductPriceUseCase.updateProductlist();
     }
+
+    public static void deleteProductItem(){
+        DeleteProductItemUseCase deleteProductItemUseCase=new DeleteProductItemUseCase();
+        deleteProductItemUseCase.deleteProductitem();
+    }
+    public static void soldItemHistory(){
+        SoldItemHistoryListUseCase soldItemHistoryListUseCase=new SoldItemHistoryListUseCase();
+        soldItemHistoryListUseCase.soldItemHistory();
+    }
+
 }
