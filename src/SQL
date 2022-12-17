@@ -19,3 +19,35 @@ location varchar(15)
 );
 
 insert into seller (sellerName,email,password,location) values ('Sujit','sujit@gmail.com','sujit@123','Delhi');
+
+
+create table category
+(
+categoryId int primary key auto_increment,
+categoryName varchar(20)
+);
+alter table category auto_increment=1001;
+insert into category (categoryName) values ("Bikes");
+insert into category (categoryName) values ("Cars");
+insert into category (categoryName) values ("Watches");
+insert into category (categoryName) values ("Shoes");
+insert into category (categoryName) values ("Jewellery");
+insert into category (categoryName) values ("Paintings");
+insert into category (categoryName) values ("Alcohols");
+insert into category (categoryName) values ("Swords");
+
+
+
+
+create table products
+(
+productId int primary key auto_increment,
+productName varchar(20) not null,
+sellerId int,
+categoryId int,
+price int,
+status varchar(20) default 'pending',
+foreign key (sellerId) references seller(sellerId),
+foreign key (categoryId) references category(categoryId)
+);
+insert into products (productName,sellerId,categoryId,price) values('Rolex',3,1003,100000);

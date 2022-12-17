@@ -1,6 +1,8 @@
 package dao;
 
+import exception.ByerException;
 import exception.SellerException;
+import model.Products;
 import model.Seller;
 import utility.DBUtility;
 
@@ -8,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class SellerDaoImpl implements SellerDao{
     @Override
@@ -43,7 +46,7 @@ public class SellerDaoImpl implements SellerDao{
         return seller;
     }
 
-    //===================================================*****************===================================================================================/
+    //======================================*****************=========================================================/
 
     @Override
     public String RegisterSeller(Seller seller) throws SellerException {
@@ -71,6 +74,44 @@ public class SellerDaoImpl implements SellerDao{
             throw new SellerException(e.getMessage());
         }
 
+        return result;
+    }
+
+    //======================================*****************=========================================================/
+
+    @Override
+    public String CreateListofProductstoSell(List<Products> products) throws SellerException {
+        String result="Not Listed";
+
+        try(Connection conn=DBUtility.provideConnection()){
+            int count=0;
+            for(int i=0;i<products.size();i++){
+                String productName = products.get(i).getProductName();
+                int sellerId = products.get(i).getSellerId();
+                int categoryId = products.get(i).getCategoryId();
+                int price = products.get(i).getPrice();
+                PreparedStatement ps = null;
+                try {
+                    ps = conn.prepareStatement("insert into products (productName,sellerId,categoryId,price) values(?,?,?,?)");
+                    ps.setString(1, productName);
+                    ps.setInt(2, sellerId);
+                    ps.setInt(3, categoryId);
+                    ps.setInt(4, price);
+                    int x = ps.executeUpdate();
+                    count++;
+                } catch (SQLException e) {
+                    System.out.println("Mismatch in data");
+                }
+            };
+            if(count>0){
+                result="Products Inserted in Auction List Successfully";
+            }else{
+                throw new SellerException(result);
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+            throw new SellerException(e.getMessage());
+        }
         return result;
     }
 
