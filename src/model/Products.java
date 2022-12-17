@@ -7,8 +7,17 @@ public class Products {
     private int categoryId;
     private int price;
     private String status;
+    private int buyerId;
 
     public Products() {
+    }
+
+    public int getBuyerId() {
+        return buyerId;
+    }
+
+    public void setBuyerId(int buyerId) {
+        this.buyerId = buyerId;
     }
 
     public int getProductId() {
@@ -68,6 +77,7 @@ public class Products {
                 ", categoryId=" + categoryId +
                 ", price=" + price +
                 ", status='" + status + '\'' +
+                ", buyerId=" + buyerId +
                 '}';
     }
 }

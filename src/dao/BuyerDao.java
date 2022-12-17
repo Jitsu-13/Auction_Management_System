@@ -13,4 +13,6 @@ public interface BuyerDao {
 
     public List<SoldItemsDTO> searchItemByCategory(String categoryName) throws ByerException;
 
+    public String BuyItem(int buyerId,String productName) throws ByerException;
+
 }

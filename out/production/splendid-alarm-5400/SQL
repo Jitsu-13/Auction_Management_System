@@ -47,9 +47,14 @@ sellerId int,
 categoryId int,
 price int,
 status varchar(20) default 'available',
+buyerId int;
 foreign key (sellerId) references seller(sellerId),
-foreign key (categoryId) references category(categoryId)
+foreign key (categoryId) references category(categoryId),
+foreign key (buyerId) references buyer(buyerId)
 );
+
+alter table products add buyerId int;
+alter table products add foreign key (buyerId) references buyer(buyerId);
 insert into products (productName,sellerId,categoryId,price) values('Rolex',3,1003,100000);
 
 

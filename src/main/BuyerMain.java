@@ -1,5 +1,6 @@
 package main;
 
+import usecases.BuyItemUseCase;
 import usecases.BuyerLoginUsecase;
 import usecases.BuyerRegistrationUseCase;
 import usecases.SearchItembyCategoryListUseCase;
@@ -11,12 +12,16 @@ public class BuyerMain {
         boolean result=login.BuyerLogin();
         return result;
     }
-    public void BuyerRegistration(){
+    public static void BuyerRegistration(){
         BuyerRegistrationUseCase register=new BuyerRegistrationUseCase();
         register.BuyerRegistraion();
     }
-    public void SearchItemCategory(){
+    public static void SearchItemCategory(){
         SearchItembyCategoryListUseCase searchItembyCategoryListUseCase=new SearchItembyCategoryListUseCase();
         searchItembyCategoryListUseCase.searchItemCategory();
+    }
+    public static void BuyItem(){
+        BuyItemUseCase buyItemUseCase=new BuyItemUseCase();
+        buyItemUseCase.buyitem();
     }
 }

@@ -1,7 +1,6 @@
 package dao;
 
 import exception.ByerException;
-import exception.SellerException;
 import model.Buyer;
 import model.SoldItemsDTO;
 import utility.DBUtility;
@@ -109,4 +108,31 @@ public class BuyerDaoImpl implements BuyerDao {
         return list;
     }
 
+    //==========================================*****************===================================================//
+
+    @Override
+    public String BuyItem(int buyerId,String productName) throws ByerException {
+        String result;
+
+        try(Connection conn=DBUtility.provideConnection()) {
+            PreparedStatement ps=conn.prepareStatement("update products set status='sold',buyerId=? where productName=?");
+
+            ps.setInt(1, buyerId);
+            ps.setString(2, productName);
+
+            int x= ps.executeUpdate();
+            if(x>0){
+                result="Item Bought Successfully- Will be delivered shortly";
+            }else{
+                throw new ByerException("No Product found with productName- "+productName );
+            }
+
+
+        }catch (SQLException e){
+            e.printStackTrace();
+            throw new ByerException(e.getMessage());
+        }
+
+        return result;
+    }
 }
