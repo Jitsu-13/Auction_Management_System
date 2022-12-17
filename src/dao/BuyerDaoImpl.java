@@ -1,13 +1,17 @@
 package dao;
 
 import exception.ByerException;
+import exception.SellerException;
 import model.Buyer;
+import model.SoldItemsDTO;
 import utility.DBUtility;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BuyerDaoImpl implements BuyerDao {
     @Override
@@ -73,5 +77,36 @@ public class BuyerDaoImpl implements BuyerDao {
     }
 
     //==========================================*****************===================================================//
+
+    @Override
+    public List<SoldItemsDTO> searchItemByCategory(String categoryName) throws ByerException {
+        List<SoldItemsDTO> list=new ArrayList<>();
+
+        try(Connection conn=DBUtility.provideConnection()) {
+
+            PreparedStatement ps=conn.prepareStatement("select p.productId,p.productName,s.sellerName,c.categoryName,p.price,p.status from products p Inner Join category c Inner Join seller s On p.categoryId=c.categoryId and p.sellerId=s.sellerId where status='available' and c.categoryName=?");
+
+            ps.setString(1,categoryName);
+
+            ResultSet rs=ps.executeQuery();
+            while (rs.next()){
+                SoldItemsDTO soldItemsDTO=new SoldItemsDTO();
+                soldItemsDTO.setProductId(rs.getInt("productId"));
+                soldItemsDTO.setProductName(rs.getString("productName"));
+                soldItemsDTO.setSellerName(rs.getString("sellerName"));
+                soldItemsDTO.setCategoryName(rs.getString("categoryName"));
+                soldItemsDTO.setPrice(rs.getInt("price"));
+                soldItemsDTO.setStatus(rs.getString("status"));
+                list.add(soldItemsDTO);
+            }
+            if(list.size()==0){
+                throw new ByerException("No Item found in Product List/ Category not found");
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+            throw new ByerException(e.getMessage());
+        }
+        return list;
+    }
 
 }

@@ -2,6 +2,7 @@ package main;
 
 import usecases.BuyerLoginUsecase;
 import usecases.BuyerRegistrationUseCase;
+import usecases.SearchItembyCategoryListUseCase;
 
 public class BuyerMain {
 
@@ -13,5 +14,9 @@ public class BuyerMain {
     public void BuyerRegistration(){
         BuyerRegistrationUseCase register=new BuyerRegistrationUseCase();
         register.BuyerRegistraion();
+    }
+    public void SearchItemCategory(){
+        SearchItembyCategoryListUseCase searchItembyCategoryListUseCase=new SearchItembyCategoryListUseCase();
+        searchItembyCategoryListUseCase.searchItemCategory();
     }
 }

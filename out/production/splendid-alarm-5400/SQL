@@ -53,5 +53,5 @@ foreign key (categoryId) references category(categoryId)
 insert into products (productName,sellerId,categoryId,price) values('Rolex',3,1003,100000);
 
 
-select p.productId,p.productName,s.sellerName,c.categoryName,p.price,p.status from products p Inner Join category c Inner Join seller s On p.categoryId=c.categoryId and p.sellerId=s.sellerId where status='available' and s.sellerId=2;
+select p.productId,p.productName,s.sellerName,c.categoryName,p.price,p.status from products p Inner Join category c Inner Join seller s On p.categoryId=c.categoryId and p.sellerId=s.sellerId where status='available' and c.categoryName='Swords';
 
