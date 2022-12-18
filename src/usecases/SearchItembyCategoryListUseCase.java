@@ -15,7 +15,7 @@ public class SearchItembyCategoryListUseCase {
     }
     public static void searchItemCategory(){
         Scanner sc=new Scanner(System.in);
-        System.out.println("Enter the Category Name to want to find list of products -\n" +
+        System.out.println("Enter the Category Name from the below table to want to find list of products -\n" +
                 "|       1001 | Bikes        |\n" +
                 "|       1002 | Cars         |\n" +
                 "|       1003 | Watches      |\n" +
@@ -23,7 +23,7 @@ public class SearchItembyCategoryListUseCase {
                 "|       1005 | Jewellery    |\n" +
                 "|       1006 | Paintings    |\n" +
                 "|       1007 | Alcohols     |\n" +
-                "|       1008 | Swords)      |\n"+
+                "|       1008 | Swords      |\n"+
             "------------------------------------------");
         String category =sc.next();
         BuyerDao dao=new BuyerDaoImpl();

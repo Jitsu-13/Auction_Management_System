@@ -1,9 +1,6 @@
 package main;
 
-import usecases.AdminLoginUseCase;
-import usecases.DailySellingReportUsecase;
-import usecases.ViewBuyerListUseCase;
-import usecases.ViewSellerListUseCase;
+import usecases.*;
 
 public class AdminMain {
 
@@ -23,6 +20,10 @@ public class AdminMain {
     public static void dailySellingReport(){
         DailySellingReportUsecase dailySellingReportUsecase=new DailySellingReportUsecase();
         dailySellingReportUsecase.dailySellingReport();
+    }
+    public static void solveDispute(){
+        ResolveDisputeUseCase resolveDisputeUseCase =new ResolveDisputeUseCase();
+        resolveDisputeUseCase.disputeResolve();
     }
 
 

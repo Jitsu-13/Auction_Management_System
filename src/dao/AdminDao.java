@@ -24,4 +24,6 @@ public interface AdminDao {
     public List<SearchBuyerDTO>DailySellingReport(String date) throws AdminException;
 
     public List<Products> DailyDisputeReport(String date) throws AdminException;
+
+    public String SolveDispute(int categoryId,int productId) throws AdminException;
 }

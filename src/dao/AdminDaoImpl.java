@@ -154,4 +154,32 @@ public class AdminDaoImpl implements AdminDao{
         }
         return list;
     }
+
+    //=================================**************************====================================================//
+
+    @Override
+    public String SolveDispute(int categoryId,int productId) throws AdminException {
+        String result;
+
+        try(Connection conn=DBUtility.provideConnection()) {
+            PreparedStatement ps=conn.prepareStatement("update products set categoryId=? where productId=?");
+
+            ps.setInt(1,categoryId);
+            ps.setInt(2, productId);
+
+            int x= ps.executeUpdate();
+            if(x>0){
+                result="Dispute Resolved Successfully";
+            }else{
+                throw new AdminException("No Product found with productId- "+productId );
+            }
+
+
+        }catch (SQLException e){
+            e.printStackTrace();
+            throw new AdminException(e.getMessage());
+        }
+
+        return result;
+    }
 }

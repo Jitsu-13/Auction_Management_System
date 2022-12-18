@@ -24,7 +24,7 @@ public class SearchBuyerbyCategoryNameUseCase {
                 "|       1005 | Jewellery    |\n" +
                 "|       1006 | Paintings    |\n" +
                 "|       1007 | Alcohols     |\n" +
-                "|       1008 | Swords)      |\n"+
+                "|       1008 | Swords      |\n"+
                 "------------------------------------------");
         String category =sc.next();
         BuyerDao dao=new BuyerDaoImpl();
