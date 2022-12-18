@@ -58,5 +58,12 @@ alter table products add foreign key (buyerId) references buyer(buyerId);
 insert into products (productName,sellerId,categoryId,price) values('Rolex',3,1003,100000);
 
 
-select p.productId,p.productName,s.sellerName,c.categoryName,p.price,p.status from products p Inner Join category c Inner Join seller s On p.categoryId=c.categoryId and p.sellerId=s.sellerId where status='available' and c.categoryName='Swords';
+select p.productId,p.productName,s.sellerName,c.categoryName,p.price,p.status from products p
+Inner Join category c Inner Join seller s
+On p.categoryId=c.categoryId and p.sellerId=s.sellerId
+where status='available' and c.categoryName='Swords';
+
+
+
+select b.buyerId,b.buyerName,b.email,p.productName,c.categoryName,s.sellerName,p.price from products p Inner Join category c Inner Join seller s Inner Join buyer b On p.categoryId=c.categoryId and p.sellerId=s.sellerId and p.buyerId=b.buyerId where c.categoryName='Paintings' and status='sold';
 

@@ -1,9 +1,6 @@
 package main;
 
-import usecases.BuyItemUseCase;
-import usecases.BuyerLoginUsecase;
-import usecases.BuyerRegistrationUseCase;
-import usecases.SearchItembyCategoryListUseCase;
+import usecases.*;
 
 public class BuyerMain {
 
@@ -23,5 +20,9 @@ public class BuyerMain {
     public static void BuyItem(){
         BuyItemUseCase buyItemUseCase=new BuyItemUseCase();
         buyItemUseCase.buyitem();
+    }
+    public static void BuyerByCategory(){
+        SearchBuyerbyCategoryNameUseCase searchBuyerbyCategoryNameUseCase=new SearchBuyerbyCategoryNameUseCase();
+        searchBuyerbyCategoryNameUseCase.searchBuyerItembyCategory();
     }
 }
