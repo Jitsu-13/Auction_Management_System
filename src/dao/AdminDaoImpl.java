@@ -3,6 +3,7 @@ package dao;
 import exception.AdminException;
 import exception.CredentialException;
 import model.BuyerDTO;
+import model.SearchBuyerDTO;
 import model.SellerDTO;
 import utility.DBUtility;
 
@@ -57,7 +58,8 @@ public class AdminDaoImpl implements AdminDao{
         return list;
     }
 
-    //=================================**************************====================================================/
+    //=================================**************************====================================================//
+
     @Override
     public List<SellerDTO> ViewSellers() throws AdminException {
         List<SellerDTO> list=new ArrayList<>();
@@ -75,6 +77,43 @@ public class AdminDaoImpl implements AdminDao{
             }
             if(list.size()==0){
                 throw new AdminException("No data in Sellers List");
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+            throw new AdminException(e.getMessage());
+        }
+        return list;
+    }
+
+    //=================================**************************====================================================//
+
+    @Override
+    public List<SearchBuyerDTO> DailySellingReport(String date) throws AdminException {
+        List<SearchBuyerDTO> list=new ArrayList<>();
+
+        try(Connection conn=DBUtility.provideConnection()) {
+
+            PreparedStatement ps=conn.prepareStatement("select b.buyerId,b.buyerName,b.email,p.productName,c.categoryName,s.sellerName,p.price from products p " +
+                    "Inner Join category c Inner Join seller s Inner Join buyer b " +
+                    "On p.categoryId=c.categoryId and p.sellerId=s.sellerId and p.buyerId=b.buyerId " +
+                    "where p.date=?");
+
+            ps.setString(1, String.valueOf(date));
+
+            ResultSet rs=ps.executeQuery();
+            while (rs.next()){
+                SearchBuyerDTO searchBuyerDTO=new SearchBuyerDTO();
+                searchBuyerDTO.setBuyerId(rs.getInt("buyerId"));
+                searchBuyerDTO.setBuyerName(rs.getString("buyerName"));
+                searchBuyerDTO.setEmail(rs.getString("email"));
+                searchBuyerDTO.setProductName(rs.getString("productName"));
+                searchBuyerDTO.setCategoryName(rs.getString("categoryName"));
+                searchBuyerDTO.setSellerName(rs.getString("sellerName"));
+                searchBuyerDTO.setPrice(rs.getInt("price"));
+                list.add(searchBuyerDTO);
+            }
+            if(list.size()==0){
+                throw new AdminException("No Item Sold on Date- "+date);
             }
         }catch (SQLException e){
             e.printStackTrace();

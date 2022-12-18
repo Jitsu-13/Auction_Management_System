@@ -1,6 +1,7 @@
 package main;
 
 import usecases.AdminLoginUseCase;
+import usecases.DailySellingReportUsecase;
 import usecases.ViewBuyerListUseCase;
 import usecases.ViewSellerListUseCase;
 
@@ -18,6 +19,10 @@ public class AdminMain {
     public static void viewSellers(){
         ViewSellerListUseCase viewSellerListUseCase=new ViewSellerListUseCase();
         viewSellerListUseCase.viewSellerList();
+    }
+    public static void dailySellingReport(){
+        DailySellingReportUsecase dailySellingReportUsecase=new DailySellingReportUsecase();
+        dailySellingReportUsecase.dailySellingReport();
     }
 
 
