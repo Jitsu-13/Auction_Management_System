@@ -29,7 +29,7 @@ public class SearchItembyCategoryListUseCase {
         BuyerDao dao=new BuyerDaoImpl();
         try {
             List<SoldItemsDTO> list= dao.searchItemByCategory(category);
-            System.out.println("---------------------" + ConsoleColors.PURPLE_BACKGROUND+ConsoleColors.YELLOW_BOLD_BRIGHT +"Products Category Wise" + ConsoleColors.RESET+ "---------------------------");
+            System.out.println("---------------------" + ConsoleColors.PURPLE_BACKGROUND+ConsoleColors.YELLOW_BOLD_BRIGHT +"Search Product By Category" + ConsoleColors.RESET+ "---------------------------");
 
             System.out.println("---------------------------------------------------------------------------------");
 

@@ -3,6 +3,7 @@ package dao;
 import exception.AdminException;
 import exception.CredentialException;
 import model.BuyerDTO;
+import model.Products;
 import model.SearchBuyerDTO;
 import model.SellerDTO;
 import utility.DBUtility;
@@ -114,6 +115,38 @@ public class AdminDaoImpl implements AdminDao{
             }
             if(list.size()==0){
                 throw new AdminException("No Item Sold on Date- "+date);
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+            throw new AdminException(e.getMessage());
+        }
+        return list;
+    }
+
+    //=================================**************************====================================================//
+
+    @Override
+    public List<Products> DailyDisputeReport(String date) throws AdminException {
+        List<Products> list=new ArrayList<>();
+
+        try(Connection conn=DBUtility.provideConnection()) {
+
+            PreparedStatement ps=conn.prepareStatement("select * from products where categoryId is Null and date=?");
+
+            ps.setString(1, String.valueOf(date));
+
+            ResultSet rs=ps.executeQuery();
+            while (rs.next()){
+                Products products=new Products();
+                products.setProductId(rs.getInt("productId"));
+                products.setProductName(rs.getString("productName"));
+                products.setSellerId(rs.getInt("sellerId"));
+                products.setCategoryId(rs.getInt("categoryId"));
+                products.setPrice(rs.getInt("price"));
+                list.add(products);
+            }
+            if(list.size()==0){
+                throw new AdminException("No Item found n product list with Category ID as null on Date- "+date);
             }
         }catch (SQLException e){
             e.printStackTrace();

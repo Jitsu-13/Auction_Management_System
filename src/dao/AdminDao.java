@@ -4,6 +4,7 @@ package dao;
 import exception.AdminException;
 import exception.CredentialException;
 import model.BuyerDTO;
+import model.Products;
 import model.SearchBuyerDTO;
 import model.SellerDTO;
 
@@ -21,4 +22,6 @@ public interface AdminDao {
     public List<SellerDTO> ViewSellers() throws AdminException;
 
     public List<SearchBuyerDTO>DailySellingReport(String date) throws AdminException;
+
+    public List<Products> DailyDisputeReport(String date) throws AdminException;
 }

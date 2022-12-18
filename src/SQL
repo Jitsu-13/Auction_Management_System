@@ -48,6 +48,7 @@ categoryId int,
 price int,
 status varchar(20) default 'available',
 buyerId int;
+date Date;
 foreign key (sellerId) references seller(sellerId),
 foreign key (categoryId) references category(categoryId),
 foreign key (buyerId) references buyer(buyerId)
@@ -56,7 +57,7 @@ foreign key (buyerId) references buyer(buyerId)
 alter table products add buyerId int;
 alter table products add Date date;
 alter table products add foreign key (buyerId) references buyer(buyerId);
-insert into products (productName,sellerId,categoryId,price) values('Rolex',3,1003,100000);
+insert into products (productName,sellerId,categoryId,price,Date) values('Katana',1,null,30000,'2022-12-15');
 
 
 select p.productId,p.productName,s.sellerName,c.categoryName,p.price,p.status from products p
@@ -71,3 +72,4 @@ Inner Join category c Inner Join seller s Inner Join buyer b
 On p.categoryId=c.categoryId and p.sellerId=s.sellerId and p.buyerId=b.buyerId
 where p.date='2022-12-18';
 
+select * from products where Date='2022-12-15' and categoryId=Null;
