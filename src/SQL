@@ -54,6 +54,7 @@ foreign key (buyerId) references buyer(buyerId)
 );
 
 alter table products add buyerId int;
+alter table products add Date date;
 alter table products add foreign key (buyerId) references buyer(buyerId);
 insert into products (productName,sellerId,categoryId,price) values('Rolex',3,1003,100000);
 

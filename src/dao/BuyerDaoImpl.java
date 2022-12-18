@@ -6,10 +6,8 @@ import model.SearchBuyerDTO;
 import model.SoldItemsDTO;
 import utility.DBUtility;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -115,14 +113,16 @@ public class BuyerDaoImpl implements BuyerDao {
     //==========================================*****************===================================================//
 
     @Override
-    public String BuyItem(int buyerId,String productName) throws ByerException {
+    public String BuyItem(int buyerId, LocalDate date,String productName) throws ByerException {
         String result;
 
         try(Connection conn=DBUtility.provideConnection()) {
-            PreparedStatement ps=conn.prepareStatement("update products set status='sold',buyerId=? where productName=?");
+            PreparedStatement ps=conn.prepareStatement("update products set status='sold',buyerId=?,date=? where productName=?");
 
             ps.setInt(1, buyerId);
-            ps.setString(2, productName);
+            ps.setDate(2, Date.valueOf(date));
+            ps.setString(3, productName);
+
 
             int x= ps.executeUpdate();
             if(x>0){
