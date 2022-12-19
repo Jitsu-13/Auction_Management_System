@@ -43,8 +43,8 @@ Automated Auction System is an Application Software that is used for the buying 
     <li>Enjoyed the process of learning and creating the application.</li>
   </ul>
     <h2><u>ER Diagram & Flow Chart<u></h2>  
-      
-      ![Flowchart](https://user-images.githubusercontent.com/107523890/208337665-d1a36c60-941c-4a67-90e9-ae9d6e7f1a15.jpeg)
+   
+   ![Flowchart](https://user-images.githubusercontent.com/107523890/208337665-d1a36c60-941c-4a67-90e9-ae9d6e7f1a15.jpeg)
       
 
    ![ERP Diagram](https://user-images.githubusercontent.com/107523890/208337571-6a154c12-b1fb-4716-846f-c2000ce9d003.jpg)
